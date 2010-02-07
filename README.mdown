@@ -36,7 +36,7 @@ Metadata provides storage of arbitrary n-deep arrays of data related to a partic
 
 ## Documentation
 
-Further documentation including additional configuration and ways of Metadata can be found [here](http://jmcneese.github.com/metadata).
+Further documentation including additional ways of configuring Metadata can be found [here](http://jmcneese.github.com/metadata).
 
 ## Reporting issues
 
