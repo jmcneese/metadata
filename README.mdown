@@ -6,31 +6,32 @@ Metadata provides storage of arbitrary n-deep arrays of data related to a partic
 
 * Clone/Copy the files in this directory into `app/plugins/metadata`
 * Include the metadata behavior in the models you wish to have metadata:
-	`var $actsAs = array('Metadata.Metadata' => array(
-		'validate' => array(
-			'fieldName'	=> array(
-				'rule'		=> 'postal',
-				'message'	=> 'Must be valid postal code',
-			),
-			'some' => array(
-				'nested' => array(
-					'array'	=> array(
-						array(
-							'rule'		=> 'numeric',
-							'message'	=> 'Must be numeric'
-						),
-						array(
-							'rule'		=> array(
-								'decimal',
-								2
+		var $actsAs = array('Metadata.Metadata' => array(
+			'validate' => array(
+				'fieldName'	=> array(
+					'rule'		=> 'postal',
+					'message'	=> 'Must be valid postal code',
+				),
+				'some' => array(
+					'nested' => array(
+						'array'	=> array(
+							array(
+								'rule'		=> 'numeric',
+								'message'	=> 'Must be numeric'
 							),
-							'message'	=> 'Must be decimal'
+							array(
+								'rule'		=> array(
+									'decimal',
+									2
+								),
+								'message'	=> 'Must be decimal'
+							)
 						)
 					)
 				)
 			)
-		)
-	));`
+		));
+
 * Define any validation rules that you need, in a similar fashion to model validation rules (all the built-in Validator rules work).  Multiple rules per node are supported, and nodes can be as deep as required.
 
 ## Documentation
