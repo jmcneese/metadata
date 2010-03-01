@@ -235,6 +235,12 @@ class Metadatum extends MetadataAppModel {
 
 				} elseif ($path_count == ($idx+1)) {
 
+                    if(is_null($value)) {
+
+                        return $this->delete($node['id']);
+
+                    }
+                    
 					if($node['value'] == $value) {
 
 						return true;
@@ -296,17 +302,13 @@ class Metadatum extends MetadataAppModel {
 
 		if(!empty($node)) {
 
-			if((!isset($data['value']) || is_null($data['value'])) &&
-				$node['rght'] > $node['lft']+1
-			) {
+			if(is_null($data['value'])) {
 
-				$this->delete($node['id']);
-
-			} else {
-
-				$data = array_merge($node, $data);
+				return $this->delete($node['id']);
 
 			}
+
+            $data = array_merge($node, $data);
 
 		} else {
 

@@ -27,7 +27,27 @@ class MyCakeTestModel extends MetadataAppModel {
  * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  * @copyright	Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
  */
-class MetaThing extends MyCakeTestModel {}
+class MetaThing extends MyCakeTestModel {
+
+    public function isGarbage($field = null) {
+
+        return $field == 'garbage';
+        
+    }
+
+    public function isGarbageLength($field = null, $length = null) {
+
+        if(empty($field) && !empty($length)) {
+
+            return strlen($field) == intval($length) && $field == 'garbage';
+
+        }
+
+        return false;
+        
+    }
+
+}
 
 /**
  * MetadataBehavior Test Case
@@ -59,11 +79,26 @@ class MetadataTestCase extends CakeTestCase {
 		$this->MetaThing	=& ClassRegistry::init('Metadata.MetaThing');
 		$this->MetaThing->Behaviors->attach('Metadata.Metadata', array(
 			'validate' => array(
-				'postal'	 => array(
+                'garbage'   => array(
+                    array(
+                        'rule'      => 'isGarbage',
+                        'message'   => 'Must be garbage'
+                    ),
+                    array(
+                        'rule'      => array('isGarbageLength', 7),
+                        'message'   => 'Must be garbage length 7'
+                    )
+                ),
+                'empty'	=> array(
+					'rule'		=> 'isGarbage',
+					'message'	=> 'Must be garbage',
+                    'allowEmpty'=> true
+				),
+				'postal'	=> array(
 					'rule'		=> 'postal',
 					'message'	=> 'Must be valid postal code',
 				),
-				'dimensions' => array(
+				'dimensions'=> array(
 					'inches' => array(
 						'height'	=> array(
 							array(
@@ -71,10 +106,7 @@ class MetadataTestCase extends CakeTestCase {
 								'message'	=> 'Must be numeric'
 							),
 							array(
-								'rule'		=> array(
-									'decimal',
-									2
-								),
+								'rule'		=> array('decimal', 2),
 								'message'	=> 'Must be decimal'
 							)
 						),
@@ -118,6 +150,8 @@ class MetadataTestCase extends CakeTestCase {
 	public function testValidation() {
 
 		$data1 = array(
+            'empty'  => '',
+            'garbage'=> 'trash',
 			'postal' => 'abcd',
 			'dimensions' => array(
 				'inches' => array(
@@ -141,7 +175,7 @@ class MetadataTestCase extends CakeTestCase {
 
 		$result1 = $this->MetaThing->invalidMeta($data1);
 		$this->assertTrue($result1);
-		$this->assertEqual(count(Set::flatten($result1)), 3);
+		$this->assertEqual(count(Set::flatten($result1)), 5);
 
 		$result2 = $this->MetaThing->setMeta($data1);
 		$this->assertFalse($result2);

@@ -144,6 +144,34 @@ class MetadatumTestCase extends CakeTestCase {
     }
 
     /**
+     * Test unsetting of existent metadata
+     *
+     * @return  void
+     */
+    public function testUnset() {
+
+        $key1  =
+        $data1 = 'test.unset';
+
+        $this->Metadatum->setKey($key1, $data1);
+
+        $result1 = $this->Metadatum->setKey($key1, null);
+        $this->assertTrue($result1);
+
+        $result2 = $this->Metadatum->getKey($key1);
+        $this->assertNull($result2);
+
+        $this->Metadatum->setKey($key1, $data1);
+
+        $result3 = $this->Metadatum->setKey($key1);
+        $this->assertTrue($result1);
+
+        $result4 = $this->Metadatum->getKey($key1);
+        $this->assertNull($result2);
+
+    }
+
+    /**
      * Test getting and setting of metadata in relation to a model/scoped.
      *
      * @return  void

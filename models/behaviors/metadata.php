@@ -187,7 +187,8 @@ final class MetadataBehavior extends ModelBehavior {
 
 			App::import('Core', 'Validation');
 
-			$Validation =& Validation::getInstance();
+			$Validation = Validation::getInstance();
+            $methods    = array_map('strtolower', get_class_methods($Model));
 
 			foreach(Set::flatten($data, '/') as $k=>$v) {
 
@@ -195,52 +196,70 @@ final class MetadataBehavior extends ModelBehavior {
 
 				if(!empty($rules)) {
 
-					$rules = $rules[0];
+					foreach($rules as $ruleSet) {
 
-					if(!Set::numeric(array_keys($rules))) {
-						$rules = array($rules);
-					}
+                        if(!Set::numeric(array_keys($ruleSet))) {
 
-					foreach($rules as $rule) {
+                            $ruleSet = array($ruleSet);
 
-						if(is_array($rule['rule'])) {
+                        }
 
-							$ruleName	= array_shift($rule['rule']);
-							$ruleParams	= $rule['rule'];
+                        foreach($ruleSet as $rule) {
 
-							array_unshift($ruleParams, $v);
+                            if (
+                                isset($rule['allowEmpty']) &&
+                                $rule['allowEmpty'] === true &&
+                                $v == ''
+                            ) {
 
-						} else {
+                                break 2;
 
-							$ruleName	= $rule['rule'];
-							$ruleParams	= array($v);
+                            }
 
-						}
+                            if(is_array($rule['rule'])) {
 
-						$valid = true;
+                                $ruleName	= array_shift($rule['rule']);
+                                $ruleParams	= $rule['rule'];
 
-						if (method_exists($Validation, $ruleName)) {
+                                array_unshift($ruleParams, $v);
 
-							$valid = $Validation->dispatchMethod($ruleName, $ruleParams);
+                            } else {
 
-						}
+                                $ruleName	= $rule['rule'];
+                                $ruleParams	= array($v);
 
-						if(!$valid) {
+                            }
 
-							$ruleMessage	= (isset($rule['message']) && !empty($rule['message']))
-								? __($rule['message'], true)
-								: sprintf('%s %s', __('Not', true), __($rule, true));
+                            $valid = true;
+
+                            if (in_array(strtolower($ruleName), $methods)) {
+
+                                $valid = $Model->dispatchMethod($ruleName, $ruleParams);
+
+                            } elseif (method_exists($Validation, $ruleName)) {
+
+                                $valid = $Validation->dispatchMethod($ruleName, $ruleParams);
+
+                            }
+
+                            if(!$valid) {
+
+                                $ruleMessage = (isset($rule['message']) && !empty($rule['message']))
+                                    ? __($rule['message'], true)
+                                    : sprintf('%s %s', __('Not', true), __($rule, true));
 
 
-							$errors[] = $this->_unflatten($k, $ruleMessage, '/');
+                                $errors[] = $this->_unflatten($k, $ruleMessage, '/');
 
-							if (isset($rule['last']) && $rule['last'] === true) {
+                                if (isset($rule['last']) && $rule['last'] === true) {
 
-								break 2;
+                                    break 3;
 
-							}
+                                }
 
-						}
+                            }
+
+                        }
 
 					}
 
