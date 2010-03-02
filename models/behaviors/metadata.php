@@ -275,10 +275,22 @@ final class MetadataBehavior extends ModelBehavior {
 
 		}
 
-		$this->_validationErrors[$Model->name] = $errors;
+        $tmp_errors = array();
+
+        foreach($errors as $idx=>$error) {
+
+            foreach($error as $field=>$message) {
+
+                $tmp_errors[$field] = $message;
+
+            }
+
+        }
+
+		$this->_validationErrors[$Model->name] = $tmp_errors;
 
 		$Model->validationErrors = array_merge($Model->validationErrors, array(
-			'Metadatum' => $errors
+			'Metadatum' => $tmp_errors
 		));
 
 		return $errors;
