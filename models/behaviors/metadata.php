@@ -10,7 +10,7 @@
  * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  * @copyright	Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
  */
-final class MetadataBehavior extends ModelBehavior {
+class MetadataBehavior extends ModelBehavior {
 
 	/**
 	 * default config for all models
