@@ -245,8 +245,8 @@ class MetadataBehavior extends ModelBehavior {
                             if(!$valid) {
 
                                 $ruleMessage = (isset($rule['message']) && !empty($rule['message']))
-                                    ? __($rule['message'], true)
-                                    : sprintf('%s %s', __('Not', true), __($rule, true));
+                                    ? $rule['message']
+                                    : sprintf('%s %s', 'Not', $rule);
 
 
                                 $errors[] = $this->_unflatten($k, $ruleMessage, '/');
