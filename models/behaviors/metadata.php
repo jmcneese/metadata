@@ -124,7 +124,7 @@ class MetadataBehavior extends ModelBehavior {
 	 */
 	public function getMeta(&$Model, $options = array()) {
 
-		if (is_string($options)) {
+		if (is_string($options) || empty($options)) {
 
 			$options = array(
 				'name' => $options
