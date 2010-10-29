@@ -45,11 +45,11 @@ class MetadataBehavior extends ModelBehavior {
 	public function afterSave(&$Model, $created) {
 
 		if(
-			isset($Model->data[$Model->name]['Metadatum']) &&
-			!empty($Model->data[$Model->name]['Metadatum'])
+			isset($Model->data[$Model->alias]['Metadatum']) &&
+			!empty($Model->data[$Model->alias]['Metadatum'])
 		) {
 
-			return $this->setMeta($Model, $Model->data[$Model->name]['Metadatum']);
+			return $this->setMeta($Model, $Model->data[$Model->alias]['Metadatum']);
 
 		}
 
