@@ -342,7 +342,7 @@ class MetadataBehavior extends ModelBehavior {
 			$invalid = $this->invalidMeta($Model, $key);
 
 			return (empty($invalid))
-				? $Model->Metadatum->setKey($key, $extra)
+				? $Model->Metadatum->setKey($key, null, $extra)
 				: false;
 
 		}
