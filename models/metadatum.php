@@ -54,7 +54,7 @@ class Metadatum extends MetadataAppModel {
 
         $path       = explode('.', $options['name']);
         $path_count = count($path);
-        $parent_id  = null;
+        $parent_id  = $options['parent_id'];
 
         foreach($path as $idx=>$path_key) {
 
