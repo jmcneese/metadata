@@ -45,7 +45,8 @@ class Metadatum extends MetadataAppModel {
         $options = Set::merge(array(
             'model'     => null,
             'foreign_id'=> null,
-            'name'      => null
+            'name'      => null,
+			'parent_id' => null
         ), $options);
 
         unset($options['value']);
