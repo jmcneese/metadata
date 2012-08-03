@@ -58,7 +58,7 @@ class MetaThing extends MyCakeTestModel {
  * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  * @copyright	Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
  */
-class MetadataTestCase extends CakeTestCase {
+class MetadataTest extends CakeTestCase {
 
 	/**
 	 * @var     array

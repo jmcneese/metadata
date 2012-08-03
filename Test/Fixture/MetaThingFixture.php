@@ -1,22 +1,19 @@
 <?php
 
 /**
- * Thing Fixture
+ * MetaThingFixture
  *
  * @package     metadata
- * @subpackage  metadata.tests.fixtures
+ * @subpackage  metadata.test.fixture
  * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * @copyright	Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
+ * @copyright	Copyright (c) 2009-2012 Joshua M. McNeese, HouseParty Inc.
  */
 class MetaThingFixture extends CakeTestFixture {
 
     /**
-     * @var     string
-     */
-    public $name    = 'MetaThing';
-
-    /**
-     * @var     array
+     * Fields
+     *
+     * @var array
      */
     public $fields  = array(
         'id'        => array(
@@ -33,7 +30,9 @@ class MetaThingFixture extends CakeTestFixture {
     );
 
     /**
-     * @var     array
+     * Records
+     *
+     * @var array
      */
     public $records = array(
         array(
@@ -54,5 +53,3 @@ class MetaThingFixture extends CakeTestFixture {
     );
 
 }
-
-?>
