@@ -3,8 +3,8 @@
 /**
  * Metadatum model
  *
- * @package        metadata
- * @subpackage     metadata.model
+ * @package        Metadata
+ * @subpackage     Metadata.Model
  * @see            MetadataBehavior
  * @license        Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  * @copyright      Copyright (c) 2009-2012 Joshua M. McNeese, HouseParty Inc.

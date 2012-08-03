@@ -5,8 +5,8 @@
  *
  * Model behavior to support metadata
  *
- * @package     metadata
- * @subpackage  metadata.model.behavior
+ * @package     Metadata
+ * @subpackage  Metadata.Model.Behavior
  * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  * @copyright	Copyright (c) 2009-2012 Joshua M. McNeese, HouseParty Inc.
  * @property    Metadatum   Metadatum
@@ -27,7 +27,7 @@ class MetadataBehavior extends ModelBehavior {
 	 * @param	boolean $created
 	 * @return	boolean
 	 */
-	public function afterSave(&$Model, $created) {
+	public function afterSave(Model $Model, $created) {
 		return (
 			isset($Model->data[$Model->alias]['Metadatum']) &&
 			!empty($Model->data[$Model->alias]['Metadatum'])
@@ -88,7 +88,7 @@ class MetadataBehavior extends ModelBehavior {
 	 * @param   mixed   $options
 	 * @return  mixed
 	 */
-	public function getMeta(&$Model, $options = array()) {
+	public function getMeta(Model $Model, $options = array()) {
 		if (is_string($options) || empty($options)) {
 			$options = array(
 				'name' => $options
@@ -126,7 +126,7 @@ class MetadataBehavior extends ModelBehavior {
 	 * @param   array   $data
 	 * @return  mixed
 	 */
-	public function invalidMeta(&$Model, $data = array()) {
+	public function invalidMeta(Model $Model, $data = array()) {
 		extract($this->settings[$Model->alias]);
 		$this->_validationErrors[$Model->name] = $errors = array();
 		if(isset($validate) && !empty($validate)) {
@@ -202,7 +202,7 @@ class MetadataBehavior extends ModelBehavior {
 	 *  - the id of the parent to set as the parent_id
 	 * @return	boolean true on success, false on failure
 	 */
-	public function recoverMeta(&$Model, $mode = 'parent', $missingParentAction = null) {
+	public function recoverMeta(Model $Model, $mode = 'parent', $missingParentAction = null) {
 		$Model->Metadatum->setScope($Model->name, $Model->id);
 		return $Model->Metadatum->recover($mode, $missingParentAction);
 	}
@@ -215,7 +215,7 @@ class MetadataBehavior extends ModelBehavior {
 	 * @param   mixed   $val
 	 * @return  boolean
 	 */
-	public function setMeta(&$Model, $key = null, $val = null) {
+	public function setMeta(Model $Model, $key = null, $val = null) {
 		if(empty($Model->id) || empty($Model->name) || is_null($key)) {
 			return false;
 		}
@@ -242,7 +242,7 @@ class MetadataBehavior extends ModelBehavior {
 	 * @param   array   $settings   Settings to override for model.
 	 * @return  void
 	 */
-	public function setup(&$Model, $settings = array()) {
+	public function setup(Model $Model, $settings = array()) {
 		$this->settings[$Model->alias] = Set::merge(array(
 			'validate' => array()
 		), $settings);
@@ -255,7 +255,7 @@ class MetadataBehavior extends ModelBehavior {
 	 * @param   Model   $Model
 	 * @return  mixed
 	 */
-	public function validationErrorsMeta(&$Model) {
+	public function validationErrorsMeta(Model $Model) {
 		return $this->_validationErrors[$Model->name];
 	}
 
@@ -265,7 +265,7 @@ class MetadataBehavior extends ModelBehavior {
 	 * @param   Model   $Model
 	 * @return  mixed
 	 */
-	public function verifyMeta(&$Model) {
+	public function verifyMeta(Model $Model) {
 		$Model->Metadatum->setScope($Model->name, $Model->id);
 		return $Model->Metadatum->verify();
 	}
