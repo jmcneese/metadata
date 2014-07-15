@@ -1,5 +1,7 @@
 <?php
 
+App::uses('Set', 'Utility');
+
 /**
  * MetadataBehavior
  *
@@ -25,9 +27,10 @@ class MetadataBehavior extends ModelBehavior {
 	 *
 	 * @param	Model	$Model
 	 * @param	boolean $created
+	 * @param	array 	$options
 	 * @return	boolean
 	 */
-	public function afterSave(Model $Model, $created) {
+	public function afterSave(Model $Model, $created, $options = array()) {
 		return (
 			isset($Model->data[$Model->alias]['Metadatum']) &&
 			!empty($Model->data[$Model->alias]['Metadatum'])
@@ -269,5 +272,5 @@ class MetadataBehavior extends ModelBehavior {
 		$Model->Metadatum->setScope($Model->name, $Model->id);
 		return $Model->Metadatum->verify();
 	}
-	
+
 }

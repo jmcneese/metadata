@@ -87,7 +87,7 @@ class Metadatum extends AppModel {
 	 * @param   array   $options
 	 * @return  boolean
 	 */
-	public function beforeSave($options) {
+	public function beforeSave($options = array()) {
 		if (
 			!empty($this->data) &&
 			isset($this->data['Metadatum']) &&
