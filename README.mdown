@@ -1,4 +1,4 @@
-# Metadata Plugin for CakePHP 1.3+
+# Metadata Plugin for CakePHP 2.0+
 
 Metadata provides storage of arbitrary n-deep arrays of data related to a particular model record
 

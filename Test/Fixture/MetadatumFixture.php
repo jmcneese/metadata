@@ -1,24 +1,22 @@
-<?php 
+<?php
 
 /**
- * Metadatum schema
+ * MetadatumFixture
  *
- * @package     metadata
- * @subpackage  metadata.config.schema
+ * @package     Metadata
+ * @subpackage  Metadata.Test.Fixture
+ * @see         Metadatum
  * @license		Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * @copyright	Copyright (c) 2009,2010 Joshua M. McNeese, HouseParty Inc.
+ * @copyright	Copyright (c) 2009-2012 Joshua M. McNeese, HouseParty Inc.
  */
-class MetadatumSchema extends CakeSchema {
+class MetadatumFixture extends CakeTestFixture {
 
 	/**
-	 * @var string
-	 */
-	public $name = 'Metadatum';
-
-	/**
-	 * @var array
-	 */
-	public $metadata = array(
+	 * Fields
+	 *
+     * @var array
+     */
+	public $fields = array(
 		'id' => array(
 			'type'		=> 'integer',
 			'null'		=> false,
@@ -109,5 +107,3 @@ class MetadatumSchema extends CakeSchema {
 	);
 
 }
-
-?>
